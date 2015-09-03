@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAZE GAME</title>
+    <style>
+
+        canvas {background-color: darkgrey;}
+        html {background-color: darkred;}
+    </style>
+    <h1>Maze Be careful</h1>
+    <h2>Controls: WASD for movement</h2>
+</head>
+<body onload="main();">
+<canvas id="canvas" width="1336" height="622"></canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var x;
+    var y;
+    var speed;
+    var cx;
+    var cy;
+    var pixel;
+    var data;
+    var data0;
+    var data1;
+    var data2;
+    var data3;
+    var rgba;
+    var color;
+
+
+    var imageObj = new Image();
+    function maze() {
+        ctx.drawImage(imageObj, 0, 0);
+
+    };
+    imageObj.src = 'maze3.png';
+
+    function main()
+    {
+        document.onkeydown=keyListener;wd
+        cx = 50; cy = 50;
+        x = 794; y=379; speed = 5;
+        drawFig();
+        maze();
+        window.setInterval("drawFig()",100);
+
+    }
+    function colorSensor()
+    {
+        pixel = ctx.getImageData(x+7, y+7, 1, 1);
+        data = pixel.data;
+        data0 = data[0];
+        data1 = data[1];
+        data2 = data[2];
+        data3 = data[3];
+        console.log("r "+data0);
+        console.log("g "+data1);
+        console.log("b "+data2);
+
+        if (data0 == 237 && data1 == 28 && data2 == 36)
+        {
+            x = 794; y = 379;
+            alert("You hit the wall try again");
+        }
+        else {return;}
+
+    }
+
+
+    function drawFig()
+    {
+        ctx.fillStyle = "darkgrey";
+        ctx.fillRect(0,0, canvas.width,canvas.height);
+
+        ctx.fillStyle = ("ed1c24");
+        ctx.fillRect(50,50, 20, 20);
+
+
+
+        maze();
+
+        ctx.fillStyle = "green";
+        //ctx.beginPath();
+        ctx.beginPath();
+        ctx.arc(x, y, 7, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+        //ctx.fillRect(x, y, 10, 20);
+        //ctx.closePath();
+    }
+
+    function seeIfGreen()
+    {
+        if (data0 == 34 && data1 == 177 && data2 == 76)
+        {
+            x = 794; y = 379;
+            alert("You WON!")
+        }
+        else
+        { return;}
+
+    }
+
+    function seeIfBlue()
+    {
+        if (data0 == 63 && data1 ==72 && data2 == 204)
+        {
+            var i = Math.floor(Math.random()*2);
+                if (i == 1)
+                {
+                    alert("You are transporting to a different maze.")
+                }
+                else if (i == 0)
+                {
+                    return;
+                }
+        }
+    }
+
+    function keyListener(e)
+    {
+        switch(e.keyCode)
+        {
+            case 83:
+                y += speed;
+                    seeIfGreen();
+                    colorSensor();
+                break;
+            case 83 + 68:
+                y += speed;
+                x += speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 83 + 65:
+                y += speed;
+                x -= speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 87 + 65:
+                y -= speed;
+                x -= speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 87 + 68:
+                y -= speed;
+                x += speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 87:
+                y -= speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 65:
+                x -= speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+            case 68:
+                x += speed;
+                seeIfGreen();
+                colorSensor();
+                break;
+        }
+    }
+</script>
+
+</body>
+</html>
