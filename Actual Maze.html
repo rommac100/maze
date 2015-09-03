@@ -31,6 +31,7 @@
     var color;
 
 
+
     var imageObj = new Image();
     function maze() {
         ctx.drawImage(imageObj, 0, 0);
@@ -40,8 +41,8 @@
 
     function main()
     {
-        document.onkeydown=keyListener;wd
-        cx = 50; cy = 50;
+        document.onkeydown=keyListener;
+        cx = x; cy = y;
         x = 794; y=379; speed = 5;
         drawFig();
         maze();
@@ -50,7 +51,7 @@
     }
     function colorSensor()
     {
-        pixel = ctx.getImageData(x+7, y+7, 1, 1);
+        pixel = ctx.getImageData(x+7, y+7,1,1);
         data = pixel.data;
         data0 = data[0];
         data1 = data[1];
@@ -72,7 +73,7 @@
 
     function drawFig()
     {
-        ctx.fillStyle = "darkgrey";
+        ctx.fillStyle = "grey";
         ctx.fillRect(0,0, canvas.width,canvas.height);
 
         ctx.fillStyle = ("ed1c24");
@@ -82,14 +83,15 @@
 
         maze();
 
+
+
         ctx.fillStyle = "green";
-        //ctx.beginPath();
+
         ctx.beginPath();
         ctx.arc(x, y, 7, 0, Math.PI*2, true);
         ctx.closePath();
         ctx.fill();
-        //ctx.fillRect(x, y, 10, 20);
-        //ctx.closePath();
+
     }
 
     function seeIfGreen()
@@ -109,14 +111,16 @@
         if (data0 == 63 && data1 ==72 && data2 == 204)
         {
             var i = Math.floor(Math.random()*2);
-                if (i == 1)
-                {
-                    alert("You are transporting to a different maze.")
-                }
-                else if (i == 0)
-                {
-                    return;
-                }
+            if (i == 1)
+            {
+                alert("You are transporting to a different maze.")
+                console.log(i);
+            }
+            else if (i == 0)
+            {
+                x = 779; y = 67;
+                return;
+            }
         }
     }
 
@@ -126,47 +130,27 @@
         {
             case 83:
                 y += speed;
-                    seeIfGreen();
-                    colorSensor();
-                break;
-            case 83 + 68:
-                y += speed;
-                x += speed;
                 seeIfGreen();
                 colorSensor();
-                break;
-            case 83 + 65:
-                y += speed;
-                x -= speed;
-                seeIfGreen();
-                colorSensor();
-                break;
-            case 87 + 65:
-                y -= speed;
-                x -= speed;
-                seeIfGreen();
-                colorSensor();
-                break;
-            case 87 + 68:
-                y -= speed;
-                x += speed;
-                seeIfGreen();
-                colorSensor();
+                seeIfBlue();
                 break;
             case 87:
                 y -= speed;
                 seeIfGreen();
                 colorSensor();
+                seeIfBlue();
                 break;
             case 65:
                 x -= speed;
                 seeIfGreen();
                 colorSensor();
+                seeIfBlue();
                 break;
             case 68:
                 x += speed;
                 seeIfGreen();
                 colorSensor();
+                seeIfBlue();
                 break;
         }
     }
