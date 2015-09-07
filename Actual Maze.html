@@ -5,13 +5,13 @@
     <title>MAZE GAME</title>
     <style>
 
-        canvas {background-color: darkgrey;}
-        html {background-color: darkred;}
+        canvas {background-color: darkgrey}
+        html {background-color: darkred}
     </style>
 
 </head>
 <body onload="main();">
-<h1>Maze Be careful</h1>
+<h1>Maze: Be careful</h1>
 <h2>Controls: WASD for movement</h2>
 <canvas id="canvas" width="1336" height="622"></canvas>
 <script>
@@ -30,15 +30,15 @@
     var data3;
     var rgba;
     var color;
-    var bool = 0;
 
 
 
     var imageObj = new Image();
     function maze() {
         ctx.drawImage(imageObj, 0, 0);
-    }
 
+    }
+    imageObj.src = 'maze3.png';
 
     function main()
     {
@@ -64,16 +64,10 @@
 
         if (data0 == 237 && data1 == 28 && data2 == 36)
         {
-            if (bool == 1)
-            {
-                x = 215; y = 274;
-            }
-            else if (bool == 0) {
-                x = 794;
-                y = 379;
-            }
-            alert("You hit the wall try again");
+           x = 794; y = 379;
+           alert("You hit the wall try again");
         }
+        else {}
 
     }
 
@@ -86,15 +80,7 @@
         ctx.fillStyle = ("ed1c24");
         ctx.fillRect(50,50, 20, 20);
 
-        //select which maze
-        if (bool == 1)
-        {
-            imageObj.src = 'advancedmaze.png';
-        }
-        else if (bool ==0)
-        {
-            imageObj.src = 'maze3.png';
-        }
+
 
         maze();
 
@@ -116,6 +102,8 @@
             x = 794; y = 379;
             alert("You WON!")
         }
+        else
+        {}
 
     }
 
@@ -126,10 +114,8 @@
             var i = Math.floor(Math.random()*2);
             if (i == 1)
             {
-                alert("You are transporting to a different maze.")
+                alert("You are transporting to a different maze.");
                 console.log(i);
-                bool = 1;
-                x = 215; y = 274;
             }
             else if (i == 0)
             {
@@ -144,9 +130,9 @@
         {
             case 83:
                 y += speed;
-                seeIfGreen();
-                colorSensor();
-                seeIfBlue();
+                    seeIfGreen();
+                    colorSensor();
+                    seeIfBlue();
                 break;
             case 87:
                 y -= speed;
